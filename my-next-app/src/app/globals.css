@@ -10,6 +10,35 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  @keyframes float-and-pulse {
+
+    0%,
+    100% {
+      transform: translateY(0);
+      border-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    50% {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  --animate-float-pulse: float-and-pulse 3s ease-in-out infinite;
+
+  @keyframes shine {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+--animate-shine-hover: shine 0.125s linear forwards;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +46,10 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
