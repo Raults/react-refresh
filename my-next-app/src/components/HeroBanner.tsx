@@ -133,20 +133,19 @@ const HeroBanner = () => {
                     <span className="animate-pulse">|</span>
                 </pre>
                 <a
-  href="#projects"
-  className={`${
-    showCTA ? "opacity-100" : "opacity-0"
-  } pointer-events-${showCTA ? "auto" : "none"} 
-  relative inline-block px-12 py-4 text-white rounded 
-  overflow-hidden transition-opacity duration-500 group`}
->
-  <span className="relative z-10">See My Work</span>
-  <span
-    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
-    opacity-0 group-hover:opacity-100 
-    transition-opacity duration-500"
-  />
-</a>
+                    href="#projects"
+                    className={`${showCTA ? "opacity-100" : "opacity-0"
+                        } pointer-events-${showCTA ? "auto" : "none"} 
+                        relative inline-block px-12 py-4 text-white rounded 
+                        overflow-hidden transition-opacity duration-500 group`}
+                >
+                    <span className="relative z-10">See My Work</span>
+                    <span
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                        opacity-0 group-hover:opacity-100 
+                        transition-opacity duration-500"
+                    />
+                </a>
 
             </div>
         </section>
