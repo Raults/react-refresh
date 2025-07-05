@@ -29,16 +29,19 @@
 
   --animate-float-pulse: float-and-pulse 3s ease-in-out infinite;
 
-  @keyframes shine {
-  0% {
-    background-position: 0%;
-  }
-  100% {
-    background-position: 200%;
-  }
-}
+  @keyframes pulse-slow {
 
---animate-shine-hover: shine 0.125s linear forwards;
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,4 +59,52 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.underline-hover-ltr {
+  @apply relative inline-block overflow-hidden;
+
+  position: relative;
+}
+
+.underline-hover-ltr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out, transform-origin 0s;
+}
+
+.underline-hover-ltr:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.underline-hover-ltr-green {
+  @apply relative inline-block overflow-hidden;
+
+  position: relative;
+}
+
+.underline-hover-ltr-green::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #A7F3D0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease-in-out, transform-origin 0s;
+}
+
+.underline-hover-ltr-green:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
