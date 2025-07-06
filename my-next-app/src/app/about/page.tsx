@@ -2,198 +2,226 @@
 "use client";
 
 import Header from "@/components/Header";
-import { useRef } from "react";
-import { useRepelEffect } from "@/hooks/useRepelEffect";
+import { useState, useEffect } from "react";
 import RepelBlock from "@/components/RepelBlock";
-import CarCarousel from "@/components/CarCarousel";
 import CarGallery from "@/components/CarGallery";
-
-const CTA = `Before you go clicking around thinking this is just another cookie-cutter portfolio — it’s not.  
-There are easter eggs scattered all over the place. Some subtle, some not.  
-Feel free to explore, poke around, and see what you uncover.
-
-If you’re more interested in the *how* than the *wow*,  
-you’ll find full documentation and source code on [GitHub](https://github.com/Raults/react-refresh).  
-This app is 100% public.`
-
-const aboutText = `
-## About Me
-
-I’m Ryan Tibbetts — a frontend engineer with a soft spot for creative experiences and a history that spans both hemispheres.
-
-I grew up as a military kid. Both my parents served in the U.S. Army and retired as Lieutenant Colonels. That lifestyle had me bouncing around: Kansas, Texas, Virginia, and Germany.  
-By my teens, we landed more permanently in a small town called Tifton, Georgia.
-
-I went on to attend Georgia State University in Atlanta, where I lived from 2012–2021. I started working remotely in 2019 — a move that would become pivotal.  
-After losing my job during COVID, I decided to lean into remote life.  
-I retrofitted my Honda Element into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting national parks, family, friends, and festivals.
-
-Eventually, I was invited by some friends at Meta to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer (Angular) on an incubator project.  
-When the project sunset, I stayed. These days, I live in San Francisco with my wife and our four cats.
-
----
-
-## Problem Solving is My Thing
-
-I've built a web-based CAD interface using Three.js for OnScale (now owned by Ansys), wrangled Bazel-based monorepos using gRPC, HTTP/2, and Protocol Buffers at Google, and I tinker with game development in my free time.  
-Limited but growing experience with Blender and Unreal Engine 5 helps keep the creativity sharp.
-
----
-
-## Fun Facts
-
-🧷 Former competitive climber — I’ve lead a 5.11, sent a 5.12, and flashed a V9.  
-🚴 Bike courier for 6 years in Atlanta during college.  
-💪 Pretty jacked — weightlifting is a daily ritual.  
-🚘 Once lived in a Honda Element for a year with two cats.  
-🐱 Now live with four.
-
----
-
-## Pro Tip 🧠
-
-If you haven’t found the terminal on the homepage... try looking a little closer 😉`;
+import ProximitySpin from "@/components/ProximitySpin";
+import EyeTracker from "@/components/EyeTracker";
+import CatPolaroids from "@/components/CatPolaroids";
+import FooterSpacer from "@/components/FooterSpacer";
+import {
+  Search,
+  Eye,
+  Mountain,
+  Bike,
+  Dumbbell,
+  Car,
+  Cat,
+} from "lucide-react";
 
 export default function AboutPage() {
-  const repelRef = useRef<HTMLParagraphElement>(null);
-  useRepelEffect(repelRef);
+  const [repelEnabled, setRepelEnabled] = useState(false);
 
-  const repelP1 = useRef<HTMLParagraphElement>(null);
-  const repelP2 = useRef<HTMLParagraphElement>(null);
-  useRepelEffect(repelP1);
-  useRepelEffect(repelP2);
+  useEffect(() => {
+    const video = document.getElementById("bg-video") as HTMLVideoElement | null;
+    if (video) {
+      video.playbackRate = 0.5; // 0.5 = half speed
+    }
+  }, []);
 
   return (
-    <main className="min-h-screen bg-black flex items-center justify-center p-12">
+    <div className="relative">
       <Header />
-      <div className="flex flex-col gap-10 items-center">
-        <div className="flex gap-10">
-          <img
-            src="/images/ryan.jpeg"
-            alt="Me while working on this website, very greasy."
-            className="rounded-xl shadow-lg w-32 sm:w-40 md:w-56 lg:w-64 h-auto object-cover"
-          />
-          <section className="px-8 py-16 max-w-4xl mx-auto text-white">
-            <h1 className="text-3xl font-bold mb-4">Real Quick</h1>
-            <div
-              className="text-lg leading-relaxed font-mono text-white space-y-4"
-            >
-              <p className="space-y-1">
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  Before you go clicking around thinking this is just another cookie-cutter portfolio — it’s not.
+      <>
+        {/* Background video (desktop only) */}
+        <video
+          id="bg-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="hidden sm:block fixed inset-0 w-full h-full object-cover opacity-50 blur-md -z-20"
+        >
+          <source src="/videos/ocean-loop_7513671-uhd_3840_2160_24fps.mp4" type="video/mp4" />
+        </video>
+
+        {/* Fallback image (mobile only) */}
+        <div
+          className="block sm:hidden fixed inset-0 bg-cover bg-center opacity-30 blur-md -z-20"
+          style={{ backgroundImage: "url('/images/ocean1.jpg')" }}
+        />
+
+        {/* Shared dark overlay */}
+        <div className="absolute inset-0 bg-black/70 -z-10" />
+      </>
+      <main className="relative min-h-screen flex items-center justify-center px-12 py-30 z-10">
+        <div className="relative flex flex-col gap-10 items-center pr-20 pl-10 py-10">
+
+          <div className="flex gap-10">
+            <EyeTracker />
+            <section className="px-8 py-16 max-w-4xl mx-auto text-white">
+              <h1 className="text-3xl font-bold mb-4">
+                <RepelBlock enabled={repelEnabled}>
+                  Real Quick
                 </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  There are easter eggs scattered all over the place. Some subtle, some not.
-                </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  Feel free to explore, poke around, and see what you uncover.
-                </RepelBlock>
-              </p>
-              <p ref={repelP2} className="space-y-1">
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  If you’re more interested in the <em>how</em> than the <em>wow</em>,
-                  you’ll find full documentation and source code on{" "}
-                </RepelBlock>
-                <a
-                  href="https://github.com/Raults/react-refresh"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative mb-[-8] underline-hover-ltr-green tracking-widest text-green-200"
-                >
-                  GitHub
-                </a>
-                . This app is 100% public.
-              </p>
-            </div>
-          </section>
-        </div>
-        <div className="flex gap-10">
-          <section className="px-8 py-16 max-w-4xl mx-auto text-white">
-            <h1 className="text-3xl font-bold mb-4">About Me</h1>
-            <div
-              className="text-lg leading-relaxed font-mono text-white space-y-4"
-            >
-              <p className="space-y-1">
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  I’m Ryan Tibbetts — a frontend engineer with a soft spot for creative experiences and a history that spans both hemispheres.
-                </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  I grew up as a military kid. Both my parents served in the U.S. Army and retired as Lieutenant Colonels. That lifestyle had me bouncing around: Kansas, Texas, Virginia, and Germany.
-                  By my teens, we landed more permanently in a small town called Tifton, Georgia.
-                </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  I went on to attend Georgia State University in Atlanta, where I lived from 2012–2021. I started working remotely in 2019 — a move that would become pivotal.
-                  After losing my job during COVID, I decided to lean into remote life.
-                  I retrofitted my Honda Element into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting national parks, family, friends, and festivals.
-                </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  Eventually, I was invited by some friends at Meta to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer (Angular) on an incubator project.
-                  When the project sunset, I stayed. These days, I live in San Francisco with my wife and our four cats.
-                </RepelBlock>
-              </p>
-            </div>
-          </section>
-          <CarGallery />
-        </div>
-        <div className="flex gap-10">
-          <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-            {[
-              { name: "Caeda", src: "caeda.jpeg" },
-              { name: "Lulu", src: "lulu.jpeg" },
-              { name: "Murph", src: "murph.jpeg" },
-              { name: "Fuzzy", src: "fuzzy.jpeg" },
-            ].map((cat, i) => (
+              </h1>
               <div
-                key={cat.name}
-                className={`relative p-2 bg-white rounded-xl shadow-lg transform ${i % 2 === 0 ? "-rotate-2" : "rotate-2"
-                  }`}
+                className="text-lg leading-relaxed font-mono text-white space-y-4"
               >
-                <img
-                  src={`/images/${cat.src}`}
-                  alt={cat.name}
-                  className="w-full h-auto rounded-lg object-cover"
-                />
-                <p className="text-center text-sm mt-2 text-gray-800 italic">{cat.name}</p>
+                <div className="space-y-1 text-lg leading-relaxed font-mono text-white mb-2">
+                  <RepelBlock enabled={repelEnabled}>
+                    Before you go clicking around thinking this is just another cookie-cutter portfolio — it’s not.
+                  </RepelBlock>
+                  <RepelBlock enabled={repelEnabled}>
+                    There are easter eggs scattered all over the place. Some </RepelBlock>{" "}
+                  <div
+                    className="inline-block transition-transform duration-300 hover:-translate-y-1 cursor-pointer"
+                    onClick={() => {
+                      setRepelEnabled((prev) => {
+                        const next = !prev;
+                        console.log("Repel enabled:", next);
+                        return next;
+                      });
+                    }}
+                  >
+                    subtle,
+                  </div>{" "}
+                  <RepelBlock enabled={repelEnabled}>
+                    some</RepelBlock>{" "}
+                  <ProximitySpin>not.</ProximitySpin>{" "}
+                  <RepelBlock enabled={repelEnabled}>
+                    Feel free to explore, poke around, and see what you uncover.
+                  </RepelBlock>
+                </div>
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    If you’re more interested in the <em>how</em> than the <em>wow</em>,
+                    you’ll find full documentation and source code on{" "}
+                  </RepelBlock>
+                  <a
+                    href="https://github.com/Raults/react-refresh"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative -mb-2.25 underline-hover-ltr-green tracking-widest text-green-200"
+                  >
+                    GitHub
+                  </a>
+                  <RepelBlock enabled={repelEnabled}>
+                    . This app is 100% public.
+                  </RepelBlock>
+                </div>
               </div>
-            ))}
+              <div className="flex items-center gap-2 my-4">
+                <h1 className="text-3xl font-bold">Pro Tip</h1>
+                <Search className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <div
+                className="text-lg leading-relaxed font-mono text-white space-y-4 my-4"
+              >
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    If you haven’t found the terminal on the homepage... try looking a little closer <Eye className="inline-block w-5 h-5 ml-2 text-primary" /> <Eye className="inline-block w-5 h-5 text-primary" />
+                  </RepelBlock>
+                </div>
+              </div>
+            </section>
           </div>
-          <section className="px-8 py-16 max-w-4xl mx-auto text-white">
-            <h1 className="text-3xl font-bold mb-4">About Me</h1>
-            <div
-              className="text-lg leading-relaxed font-mono text-white space-y-4"
-            >
-              <p className="space-y-1">
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  Before you go clicking around thinking this is just another cookie-cutter portfolio — it’s not.
+          <div className="flex gap-10">
+            <section className="px-8 py-16 max-w-4xl mx-auto text-white">
+              <h1 className="text-3xl font-bold mb-4">
+                <RepelBlock enabled={repelEnabled}>
+                  About Me
                 </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  There are easter eggs scattered all over the place. Some subtle, some not.
+              </h1>
+              <div
+                className="text-lg leading-relaxed font-mono text-white space-y-4"
+              >
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    I’m Ryan Tibbetts — a frontend engineer with a soft spot for creative experiences and a history that spans both hemispheres.
+                  </RepelBlock>
+                </div>
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    I grew up as a military kid. Both my parents served in the U.S. Army and retired as Lieutenant Colonels. That lifestyle had me bouncing around: Kansas, Texas, Virginia, and Germany.
+                    By my teens, we landed more permanently in a small town called Tifton, Georgia.
+                  </RepelBlock>
+                </div>
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    I went on to attend Georgia State University in Atlanta, where I lived from 2012–2021. I started working remotely in 2019 — a move that would become pivotal.
+                    After losing my job during COVID, I decided to lean into remote life.
+                    I retrofitted my Honda Element into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting national parks, family, friends, and festivals.
+                  </RepelBlock>
+                </div>
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    Eventually, I was invited by some friends at Meta to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer (Angular) on an incubator project.
+                    When the project sunset, I stayed. These days, I live in San Francisco with my wife and our four cats.
+                  </RepelBlock>
+                </div>
+              </div>
+            </section>
+            <CarGallery />
+          </div>
+          <div className="flex gap-40 space-y-10">
+            <CatPolaroids />
+            <section className="px-8 py-16 max-w-6xl mx-auto text-white">
+              <h1 className="text-3xl font-bold mb-4">
+                <RepelBlock enabled={repelEnabled}>
+                  Problem Solving is My Thing
                 </RepelBlock>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  Feel free to explore, poke around, and see what you uncover.
+              </h1>
+              <div
+                className="text-lg leading-relaxed font-mono text-white space-y-4"
+              >
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    I've built a web-based CAD interface using Three.js for OnScale (now owned by Ansys), wrangled Bazel-based monorepos using gRPC, HTTP/2, and Protocol Buffers at Google, and I tinker with game development in my free time.
+                    Limited but growing experience with Blender and Unreal Engine 5 helps keep the creativity sharp.
+                  </RepelBlock>
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold my-4">
+                <RepelBlock enabled={repelEnabled}>
+                  Fun Facts!
                 </RepelBlock>
-              </p>
-              <p className="space-y-1">
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  If you’re more interested in the <em>how</em> than the <em>wow</em>,
-                  you’ll find full documentation and source code on{" "}
-                </RepelBlock>
-                <a
-                  href="https://github.com/Raults/react-refresh"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative mb-[-8] underline-hover-ltr-green tracking-widest text-green-200"
-                >
-                  GitHub
-                </a>
-                <RepelBlock className="text-lg leading-relaxed font-mono text-white mb-2">
-                  . This app is 100% public.
-                </RepelBlock>
-              </p>
-            </div>
-          </section>
+              </h1>
+              <div
+                className="text-lg leading-relaxed font-mono text-white space-y-4"
+              >
+                <div className="space-y-1">
+                  <RepelBlock enabled={repelEnabled}>
+                    <ul className="space-y-2 text-base text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <Mountain className="w-5 h-5 mt-1 text-primary" />
+                        Former competitive climber — I’ve lead a 5.11, sent a 5.12, and flashed a V9.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Bike className="w-5 h-5 mt-1 text-primary" />
+                        Bike courier for 6 years in Atlanta during college.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Dumbbell className="w-5 h-5 mt-1 text-primary" />
+                        Pretty jacked — weightlifting is a daily ritual.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Car className="w-5 h-5 mt-1 text-primary" />
+                        Once lived in a Honda Element for a year with two cats.
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Cat className="w-5 h-5 mt-1 text-primary" />
+                        Now live with four.
+                      </li>
+                    </ul>
+                  </RepelBlock>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <FooterSpacer />
+    </div>
   );
 }

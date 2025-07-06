@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const carImages = ["car1.jpg", "car2.jpg", "car3.jpg", "car4.jpg", "car5.jpg", "car6.jpg"];
+const carImages = ["car1.jpg", "car2.jpg", "car3.jpg", "car5.jpg"];
 
 export default function CarCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);

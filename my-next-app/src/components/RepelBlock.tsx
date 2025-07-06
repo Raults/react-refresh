@@ -1,18 +1,26 @@
-// src/components/RepelBlock.tsx
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { useRepelEffect } from "@/hooks/useRepelEffect";
 import clsx from "clsx";
 
 type RepelBlockProps = {
   children: ReactNode;
   className?: string;
+  enabled?: boolean;
 };
 
-const RepelBlock = ({ children, className }: RepelBlockProps) => {
+const RepelBlock = ({ children, className, enabled }: RepelBlockProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  useRepelEffect(ref);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  // prevent SSR hydration mismatch
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  // run repel effect only on client after mount
+  useRepelEffect(ref, enabled && hasMounted);
 
   return (
     <div

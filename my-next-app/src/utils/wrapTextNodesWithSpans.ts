@@ -25,13 +25,14 @@ export const wrapTextNodesWithSpans = (node: Node) => {
 
     for (const word of words) {
       if (word.trim() === "") {
-        fragment.appendChild(document.createTextNode(word)); // preserve spaces as-is
+        fragment.appendChild(document.createTextNode(word)); // preserve spaces
         continue;
       }
 
       const span = document.createElement("span");
       span.textContent = word;
       span.className = "inline-block transition-transform duration-150 ease-out";
+      span.setAttribute("data-repel-word", ""); // used to find later
       fragment.appendChild(span);
     }
 
