@@ -3,6 +3,7 @@
 
 import { Terminal } from "lucide-react";
 import Link from "next/link";
+import FadeLink from "./FadeLink";
 
 const Header = () => {
     return (
@@ -14,7 +15,7 @@ const Header = () => {
                     {["Projects", "About", "Contact"].map((label) => {
                         const href = `/${label.toLowerCase()}`;
                         return (
-                            <Link
+                            <FadeLink
                                 key={label}
                                 href={href}
                                 className="group px-10 py-2 relative"
@@ -22,12 +23,12 @@ const Header = () => {
                                 <span className="underline-hover-ltr tracking-widest">
                                     {label}
                                 </span>
-                            </Link>
+                            </FadeLink>
                         );
                     })}
-                    <Link href="/" className="group mb-2 flex items-center pl-5 ">
+                    <FadeLink href="/" className="group mb-2 flex items-center pl-5 ">
                         <Terminal className="w-6 h-6 text-white animate-pulse-slow transition-transform group-hover:scale-110" />
-                    </Link>
+                    </FadeLink>
                 </nav>
             </div>
         </header>

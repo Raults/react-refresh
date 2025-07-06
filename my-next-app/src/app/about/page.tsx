@@ -112,8 +112,12 @@ export default function AboutPage() {
                 </div>
               </div>
               <div className="flex items-center gap-2 my-4">
-                <h1 className="text-3xl font-bold">Pro Tip</h1>
-                <Search className="w-8 h-8 text-muted-foreground" />
+                <h1 className="text-3xl font-bold">
+                  <RepelBlock enabled={repelEnabled}>
+                    Pro Tip
+                  </RepelBlock>
+                </h1>
+                <Search className="w-8 h-8 text-muted-foreground cursor-pointer" />
               </div>
               <div
                 className="text-lg leading-relaxed font-mono text-white space-y-4 my-4"

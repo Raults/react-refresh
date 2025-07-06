@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import TransitionOverlay from "@/components/TransitionOverlay";
+import { PageTransitionProvider } from "@/context/PageTransitionContext";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 import { Roboto } from "next/font/google";
+import PageFadeOverlay from "@/components/PageFadeOverlay";
+import PageTransitionOverlay from "@/components/PageTransitionOverlay";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -36,7 +29,11 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${roboto.variable} antialiased`}
       >
-        {children}
+        <PageTransitionProvider>
+          <PageTransitionOverlay />
+          <TransitionOverlay />
+          {children}
+        </PageTransitionProvider>
       </body>
     </html>
   );
