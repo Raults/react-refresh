@@ -70,7 +70,7 @@ export default function AboutPage() {
                 <section className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                   <h1 className="text-3xl font-bold mb-4">
                     <RepelBlock enabled={repelEnabled}>
-                      Real Quick
+                      Read First
                     </RepelBlock>
                   </h1>
                   <div
