@@ -43,7 +43,7 @@ export default function CarGallery() {
   return (
     <>
       {/* Thumbnail Grid */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 min-w-[496px] max-h-[656px]">
         {carImages.map((src, i) => (
           <div
             key={i}

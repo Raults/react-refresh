@@ -67,10 +67,11 @@ export default function EyeTracker() {
   }, [trackingEnabled]);
 
   return (
-    <div
-      className="relative w-90 h-120 mx-auto mt-10 rounded-xl overflow-hidden"
-      style={{
-        backgroundImage: `repeating-linear-gradient(
+    <div className="relative flex items-center justify-center">
+      <div
+        className="relative w-90 h-120 mx-auto rounded-xl overflow-hidden"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
                           to right,
                           #acaaab 0%,
                           #acaaab 38%,
@@ -79,30 +80,31 @@ export default function EyeTracker() {
                           #b0bfd4 68%,
                           #b0bfd4 100%
                         )`,
-        backgroundSize: "100% 100%", // or experiment with '400% 100%' to stretch it
-      }}
-    >
-      {/* Eye whites (bottom layer) */}
-      <img
-        src="/assets/eyes.svg"
-        alt="Eyes"
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none z-0"
-      />
+          backgroundSize: "100% 100%", // or experiment with '400% 100%' to stretch it
+        }}
+      >
+        {/* Eye whites (bottom layer) */}
+        <img
+          src="/assets/eyes.svg"
+          alt="Eyes"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-0"
+        />
 
-      {/* Pupils (middle layer, animated) */}
-      <img
-        ref={pupilRef}
-        src="/assets/pupils.svg"
-        alt="Pupils"
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none transition-transform duration-75 z-10"
-      />
+        {/* Pupils (middle layer, animated) */}
+        <img
+          ref={pupilRef}
+          src="/assets/pupils.svg"
+          alt="Pupils"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none transition-transform duration-75 z-10"
+        />
 
-      {/* Face (top layer) */}
-      <img
-        src="/assets/face.svg"
-        alt="Face"
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none z-20"
-      />
+        {/* Face (top layer) */}
+        <img
+          src="/assets/face.svg"
+          alt="Face"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-20"
+        />
+      </div>
     </div>
   );
 }
