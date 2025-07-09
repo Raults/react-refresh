@@ -4,6 +4,7 @@ import { useState } from "react";
 import VideoBackground from "./VideoBackground";
 import EditableIntro from "./EditableIntro";
 import CallToAction from "./CallToAction";
+// import VideoBackground from "../VideoBackground";
 
 const HeroBanner = () => {
   const [showCTA, setShowCTA] = useState(false);

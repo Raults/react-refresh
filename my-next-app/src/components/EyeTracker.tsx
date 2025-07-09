@@ -3,12 +3,18 @@ import { useEffect, useRef, useState } from "react";
 export default function EyeTracker() {
   const pupilRef = useRef<HTMLImageElement>(null);
   const [trackingEnabled, setTrackingEnabled] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setFadeIn(true), 50); // adjust delay to sync w/ parent
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     // Enable tracking after delay
     const enableTimer = setTimeout(() => {
       setTrackingEnabled(true);
-    }, 15000); // ⏱️ 3 seconds
+    }, 3000); // ⏱️ 3 seconds
 
     return () => clearTimeout(enableTimer);
   }, []);
@@ -67,7 +73,8 @@ export default function EyeTracker() {
   }, [trackingEnabled]);
 
   return (
-    <div className="relative flex items-center justify-center">
+    <div className={`relative flex items-center justify-center transition-opacity duration-500 ${fadeIn ? "opacity-100" : "opacity-0"
+      }`}>
       <div
         className="relative w-90 h-120 mx-auto rounded-xl overflow-hidden"
         style={{

@@ -1,4 +1,5 @@
 "use client";
+import { X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 // const carImages = ["car1.jpg", "car2.jpg", "car3.jpg", "car4.jpg", "car5.jpg", "car6.jpg"];
@@ -78,7 +79,7 @@ export default function CarGallery() {
       {/* Lightbox */}
       {selectedImage && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50 animate-fade-in"
+          className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-100 animate-fade-in"
           onClick={() => setSelectedIndex(null)}
         >
           <div
@@ -86,19 +87,17 @@ export default function CarGallery() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
-            <button
+            <X
               onClick={() => setSelectedIndex(null)}
               className="absolute top-4 right-4 text-white text-4xl font-bold hover:scale-110 transition-transform cursor-pointer z-50"
-            >
-              &times;
-            </button>
+            />
 
             {/* Clickable Image */}
             <img
               src={selectedImage}
               alt="Full Size"
               onClick={handleImageClick}
-              className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl transition-transform duration-300 hover:scale-105 cursor-pointer select-none"
+              className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-2xl cursor-pointer select-none"
             />
           </div>
         </div>
