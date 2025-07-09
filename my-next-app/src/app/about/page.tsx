@@ -10,7 +10,6 @@ import EyeTracker from "@/components/EyeTracker";
 import CatPolaroids from "@/components/CatPolaroids";
 import FooterSpacer from "@/components/FooterSpacer";
 import {
-  Search,
   Eye,
   Mountain,
   Bike,
@@ -35,7 +34,6 @@ export default function AboutPage() {
 
   return (
     <SmoothScrollWrapper>
-      <div className="relative">
         <Header />
         <>
           {/* Background video (desktop only) */}
@@ -61,16 +59,13 @@ export default function AboutPage() {
         </>
         <main className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 py-20 sm:py-30 z-10">
           <div className="relative flex flex-col gap-10 items-center pr-20 pl-10 py-10">
-
-            <div className="flex flex-col lg:flex-row items-center justify-center gap-10 w-full">
-              <SlideUp>
+            <SlideUp>
+              <div className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full">
                 <EyeTracker />
-              </SlideUp>
-              <SlideUp>
                 <section className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                   <h1 className="text-3xl font-bold mb-4">
                     <RepelBlock enabled={repelEnabled}>
-                      Read First
+                      Welcome!
                     </RepelBlock>
                   </h1>
                   <div
@@ -133,15 +128,14 @@ export default function AboutPage() {
                     <div className="space-y-1">
                       <RepelBlock enabled={repelEnabled}>
                         If you haven’t found the terminal on the homepage... try looking a little closer <FunIcon Icon={Eye} type="eye" className="inline-block w-5 h-5 ml-2 text-primary" /><FunIcon Icon={Eye} type="eye" className="inline-block w-5 h-5 text-primary" />
-
                       </RepelBlock>
                     </div>
                   </div>
                 </section>
-              </SlideUp>
-            </div>
-            <div className="flex flex-col-reverse lg:flex-row items-center justify-center gap-10 w-full">
-              <SlideUp>
+              </div>
+            </SlideUp>
+            <SlideUp>
+              <div className="flex flex-col-reverse xl:flex-row items-center justify-center gap-10 w-full">
                 <section className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                   <h1 className="text-3xl font-bold mb-4">
                     <RepelBlock enabled={repelEnabled}>
@@ -165,28 +159,25 @@ export default function AboutPage() {
                     <div className="space-y-1">
                       <RepelBlock enabled={repelEnabled}>
                         I went on to attend Georgia State University in Atlanta, where I lived from 2012–2021. I started working remotely in 2019 — a move that would become pivotal.
-                        After losing my job during COVID, I decided to lean into remote life.
+                        During COVID, I decided to lean into remote work life.
                         I retrofitted my Honda Element into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting national parks, family, friends, and festivals.
+                        All while working from the comfort of my vehicle using various methods such as starlink and cell tower routers.
                       </RepelBlock>
                     </div>
                     <div className="space-y-1">
                       <RepelBlock enabled={repelEnabled}>
-                        Eventually, I was invited by some friends at Meta to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer (Angular) on an incubator project.
-                        When the project sunset, I stayed. These days, I live in San Francisco with my wife and our four cats.
+                        Eventually, I was invited by some friends at META to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer on an incubator project.
+                        When the project sunset, I stayed in CA. These days, I live in San Francisco with my wife and our four cats.
                       </RepelBlock>
                     </div>
                   </div>
                 </section>
-              </SlideUp>
-              <SlideUp>
                 <CarGallery />
-              </SlideUp>
-            </div>
-            <div className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full space-y-10 xl:space-y-0">
-              <SlideUp>
+              </div>
+            </SlideUp>
+            <SlideUp>
+              <div className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full space-y-10 lg:space-y-0">
                 <CatPolaroids />
-              </SlideUp>
-              <SlideUp>
                 <section className="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-lg px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                   <h1 className="text-3xl font-bold mb-4">
                     <RepelBlock enabled={repelEnabled}>
@@ -239,12 +230,11 @@ export default function AboutPage() {
                     </div>
                   </div>
                 </section>
-              </SlideUp>
-            </div>
+              </div>
+            </SlideUp>
           </div>
         </main>
         <FooterSpacer />
-      </div>
     </SmoothScrollWrapper>
   );
 }

@@ -145,3 +145,10 @@ body {
     animation: fade-in 0.3s ease-out both;
   }
 }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/roboto/roboto-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
