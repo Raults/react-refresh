@@ -97,7 +97,7 @@ export default function ClipAndShipDemo() {
   };
 
   return (
-    <div className="flex flex-col gap-6 p-6 bg-gray-900 text-white h-[700px]">
+    <div className="flex flex-col gap-6 p-6 bg-gray-900 text-white h-[700px] rounded-xl">
       <div className="w-full relative">
         <video
           ref={videoRef}
