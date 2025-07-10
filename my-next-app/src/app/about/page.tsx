@@ -17,11 +17,12 @@ import {
   Cat,
 } from "lucide-react";
 import ExpandingSearch from "@/components/about/ExpandingSearch";
-import { FunIcon } from "@/components/shared/FunIncon";
+import { FunIcon } from "@/components/about/FunIncon";
 import SlideUp from "@/components/shared/SlideUp";
 import VideoBackground from "@/components/shared/VideoBackground";
 import Chevron from "@/components/shared/Chevron";
 import ToggleSwap from "@/components/about/ToggleSwap";
+import FunWord from "@/components/about/FunWord";
 
 const videos = [
   "/videos/waves-1_1777362-uhd_3840_2160_25fps.mp4",
@@ -62,9 +63,7 @@ export default function AboutPage() {
         <section
           ref={sectionRefs[0]}
           className="relative h-screen flex items-center justify-center snap-start transition-all duration-1000">
-
-          <SlideUp>
-            <div className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full">
+            <SlideUp className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full">
               <ToggleSwap
                 front={<img src="/images/ryan.jpeg" className="w-full h-full object-cover rounded-xl" />}
                 back={<EyeTracker />}
@@ -142,8 +141,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </SlideUp>
+            </SlideUp>
           <Chevron
             direction="down"
             onClick={() => scrollTo(1)}
@@ -153,9 +151,7 @@ export default function AboutPage() {
         <section
           ref={sectionRefs[1]}
           className="relative h-screen flex items-center justify-center snap-start transition-all duration-1000">
-
-          <SlideUp>
-            <div className="flex flex-col-reverse xl:flex-row items-center justify-center gap-10 w-full">
+            <SlideUp className="flex flex-col-reverse xl:flex-row items-center justify-center gap-10 w-full">
               <div className="px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                 <h1 className="text-3xl font-bold mb-4">
                   <RepelBlock enabled={repelEnabled}>
@@ -167,12 +163,12 @@ export default function AboutPage() {
                 >
                   <div className="space-y-1">
                     <RepelBlock enabled={repelEnabled}>
-                      I’m Ryan Tibbetts — a frontend engineer with a soft spot for creative experiences and a history that spans both hemispheres.
+                      I’m Ryan Tibbetts — a frontend engineer with a soft spot for creative experiences and a history that spans both <FunWord animationType="flip">hemispheres.</FunWord>
                     </RepelBlock>
                   </div>
                   <div className="space-y-1">
                     <RepelBlock enabled={repelEnabled}>
-                      I grew up as a military kid. Both my parents served in the U.S. Army and retired as Lieutenant Colonels. That lifestyle had me bouncing around: Kansas, Texas, Virginia, and Germany.
+                      I grew up as a military kid. Both my parents served in the U.S. Army and retired as Lieutenant Colonels. That lifestyle had me <FunWord animationType="bounce">bouncing around:</FunWord> Kansas, Texas, Virginia, and Germany.
                       By my teens, we landed more permanently in a small town called Tifton, Georgia.
                     </RepelBlock>
                   </div>
@@ -180,21 +176,20 @@ export default function AboutPage() {
                     <RepelBlock enabled={repelEnabled}>
                       I went on to attend Georgia State University in Atlanta, where I lived from 2012–2021. I started working remotely in 2019 — a move that would become pivotal.
                       During COVID, I decided to lean into remote work life.
-                      I retrofitted my Honda Element into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting national parks, family, friends, and festivals.
-                      All while working from the comfort of my vehicle using various methods such as starlink and cell tower routers.
+                      I retrofitted my <FunWord animationType="drive">Honda Element</FunWord> into a mobile home, packed my two cats, and spent the next year driving across the U.S. — visiting <FunWord animationType="sparkle">national parks</FunWord>, family, friends, and festivals.
+                      All while working from the comfort of my vehicle using various methods such as <FunWord animationType="pulse">starlink</FunWord> and cell tower routers.
                     </RepelBlock>
                   </div>
                   <div className="space-y-1">
                     <RepelBlock enabled={repelEnabled}>
-                      Eventually, I was invited by some friends at META to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer on an incubator project.
-                      When the project sunset, I stayed in CA. These days, I live in San Francisco with my wife and our four cats.
+                      Eventually, I was invited by some friends at <FunWord animationType="glitch">META</FunWord> to stay in California. That led to a contract at Google, where I built internal tools as a frontend engineer on an incubator project.
+                      When the project sunset, I stayed in CA. These days, I live in <FunWord animationType="skyline">San Francisco</FunWord> with my wife and our <FunWord animationType="cats">four cats.</FunWord>
                     </RepelBlock>
                   </div>
                 </div>
               </div>
               <CarGallery />
-            </div>
-          </SlideUp>
+            </SlideUp>
           <Chevron
             direction="up"
             onClick={() => scrollTo(0)}
@@ -209,9 +204,7 @@ export default function AboutPage() {
         <section
           ref={sectionRefs[2]}
           className="relative h-screen flex items-center justify-center snap-start transition-all duration-1000">
-
-          <SlideUp>
-            <div className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full space-y-10 lg:space-y-0">
+            <SlideUp className="flex flex-col xl:flex-row items-center justify-center gap-10 w-full space-y-10 lg:space-y-0">
               <CatPolaroids />
               <div className="px-6 sm:px-8 py-12 sm:py-16 w-full max-w-4xl text-white">
                 <h1 className="text-3xl font-bold mb-4">
@@ -265,8 +258,7 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </SlideUp>
+            </SlideUp>
           <Chevron
             direction="up"
             onClick={() => scrollTo(1)}

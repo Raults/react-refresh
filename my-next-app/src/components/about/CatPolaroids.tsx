@@ -32,7 +32,7 @@ export default function CatPolaroids() {
   };
 
   return (
-    <div className="relative w-full w-md h-100 mx-auto mt-8">
+    <div className="relative w-full w-md h-100 mt-8">
       {cats.map((cat, i) => {
         const isTop = cat.name === topCat;
         const style = blownTransforms?.[cat.name] ?? cat;
