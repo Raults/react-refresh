@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, RefObject } from "react";
-import TerminalModal from "./TerminalModal";
+import dynamic from "next/dynamic";
+const TerminalModal = dynamic(() => import("./TerminalModal"), { ssr: false });
 
 const lines = [
     "Hi, I'm Ryan Tibbetts.",
@@ -14,6 +15,7 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
     const [isEditable, setIsEditable] = useState(false);
     const [showCursor, setShowCursor] = useState(true);
     const [showTerminal, setShowTerminal] = useState(false);
+    const [terminalKey, setTerminalKey] = useState(0);
     const editableRef = useRef<HTMLDivElement>(null);
 
     const focusEditableAtEnd = (ref: RefObject<HTMLDivElement | null>) => {
@@ -25,6 +27,25 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
         range.collapse(false);
         sel?.removeAllRanges();
         sel?.addRange(range);
+    };
+
+    const handleCloseTerminal = () => {
+        setShowTerminal(false);
+
+        requestAnimationFrame(() => {
+            setDisplayedText("");
+            setLineIndex(0);
+            setCharIndex(0);
+            setIsEditable(false);
+            setShowCursor(true);
+            setTerminalKey((k) => k + 1);
+            editableRef.current?.focus(); // optional
+        });
+
+        // Clear editable text content
+        if (editableRef.current) {
+            editableRef.current.innerText = "";
+        }
     };
 
     useEffect(() => {
@@ -66,12 +87,18 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
 
     useEffect(() => {
         if (!isEditable) return;
+
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Enter") {
                 e.preventDefault();
-                setShowTerminal(true);
+
+                const text = editableRef.current?.innerText.trim().toLowerCase();
+                if (text === "terminal") {
+                    setShowTerminal(true);
+                }
             }
         };
+
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [isEditable]);
@@ -80,13 +107,13 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
         <>
             <div
                 ref={editableRef}
-                contentEditable={isEditable}
+                contentEditable={isEditable && !showTerminal}
                 suppressContentEditableWarning
                 data-gramm="false"
                 data-gramm_editor="false"
                 className="text-white text-2xl md:text-3xl font-mono whitespace-pre-line text-center max-w-2xl mx-auto outline-none"
             >
-                {displayedText}
+                {!showTerminal && displayedText}
                 {showCursor && (
                     <span className="inline-block w-[0ch] transition-opacity duration-1000 ease-in opacity-100 animate-pulse">
                         |
@@ -94,7 +121,7 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
                 )}
             </div>
 
-            {showTerminal && <TerminalModal onClose={() => setShowTerminal(false)} />}
+            {showTerminal && <TerminalModal key={terminalKey} onClose={handleCloseTerminal} />}
         </>
     );
 };

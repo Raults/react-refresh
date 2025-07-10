@@ -13,14 +13,29 @@ import MockDocumentParserDemo from "@/components/projects/MockDocumentParserDemo
 import OnScaleViewer from "@/components/projects/OnScaleViewer";
 import DeltaFlightDemo from "@/components/projects/DeltaFlightDemo";
 import ClipAndShipDemo from "@/components/projects/ClipAndShipDemo";
+import Chevron from "@/components/shared/Chevron";
 
 const videos = [
   "/videos/board-pile_6755170-uhd_3840_2160_25fps.mp4",
   "/videos/board-pile_6755170-uhd_3840_2160_25fps copy.mp4"
 ];
 
+const modalKeys = ["x", "duke", "equifax", "delta", "turner", "onscale"];
+
 export default function ProjectsPage() {
   const [activeModal, setActiveModal] = useState<null | string>(null);
+
+  const handleNextModal = () => {
+    const currentIndex = modalKeys.indexOf(activeModal);
+    const nextIndex = (currentIndex + 1) % modalKeys.length;
+    setActiveModal(modalKeys[nextIndex]);
+  };
+
+  const handlePreviousModal = () => {
+    const currentIndex = modalKeys.indexOf(activeModal);
+    const prevIndex = (currentIndex - 1 + modalKeys.length) % modalKeys.length;
+    setActiveModal(modalKeys[prevIndex]);
+  };
 
   useEffect(() => {
     const video = document.getElementById("bg-video") as HTMLVideoElement | null;
@@ -28,6 +43,23 @@ export default function ProjectsPage() {
       video.playbackRate = 0.5; // 0.5 = half speed
     }
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!activeModal) return;
+
+      if (e.key === "ArrowRight") {
+        handleNextModal();
+      } else if (e.key === "ArrowLeft") {
+        handlePreviousModal();
+      } else if (e.key === "Escape") {
+        setActiveModal(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeModal]);
 
   return (
     <>
@@ -107,6 +139,20 @@ export default function ProjectsPage() {
 
         </div>
       </main>
+      {activeModal && (
+        <>
+          <Chevron
+            direction="left"
+            onClick={handlePreviousModal}
+            className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50"
+          />
+          <Chevron
+            direction="right"
+            onClick={handleNextModal}
+            className="fixed right-4 top-1/2 transform -translate-y-1/2 z-50"
+          />
+        </>
+      )}
       <ProjectModal isOpen={activeModal === "x"} onClose={() => setActiveModal(null)}>
         <GoogleXModalContent />
       </ProjectModal>
@@ -125,7 +171,6 @@ export default function ProjectsPage() {
       <ProjectModal isOpen={activeModal === "onscale"} onClose={() => setActiveModal(null)}>
         <OnScaleModalContent />
       </ProjectModal>
-
     </>
   );
 }

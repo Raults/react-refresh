@@ -41,7 +41,7 @@ const Header = () => {
             </FadeLink>
           ))}
           <FadeLink href="/" className="group mb-2 flex items-center pl-5 cursor-pointer">
-            <Terminal className="w-6 h-6 text-white animate-pulse-slow transition-transform group-hover:scale-110" />
+            <Terminal className="w-6 h-6 mr-4 text-white animate-pulse-slow transition-transform group-hover:scale-110" />
           </FadeLink>
         </nav>
       </div>

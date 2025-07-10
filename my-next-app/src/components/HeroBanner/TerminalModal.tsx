@@ -79,23 +79,35 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
     const [commandHistory, setCommandHistory] = useState<string[]>([]);
     const [historyIndex, setHistoryIndex] = useState<number | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isExiting, setIsExiting] = useState(false);
 
-    useEffect(() => {
-        const audio = new Audio("/sounds/terminal-start.mp3");
-        audio.volume = 0.4;
-        audio.play().catch(() => { });
-    }, []);
-
-    const getNodeAtPath = (path: string[]): FileOrDirNode | null => {
+    const getNodeAtPath = (inputPath: string[]): FileOrDirNode | null => {
         let node: FileOrDirNode = fileSystem["/"];
-        for (const segment of path) {
-            if (node.type === "dir" && node.contents[segment]) {
+        for (const segment of inputPath) {
+            if (isDirNode(node) && node.contents[segment]) {
                 node = node.contents[segment];
             } else {
                 return null;
             }
         }
         return node;
+    };
+
+    const resolvePath = (input: string): string[] => {
+        const parts = input.split("/").filter(Boolean);
+        const path = [...cwd];
+
+        for (const part of parts) {
+            if (part === "..") {
+                path.pop();
+            } else if (part === "~") {
+                return [];
+            } else {
+                path.push(part);
+            }
+        }
+
+        return path;
     };
 
     const getPrompt = () =>
@@ -129,16 +141,12 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
             case "cd": {
                 const target = args[1];
                 if (!target) return ["Usage: cd [dir]"];
-                if (target === "..") {
-                    setCwd((prev) => prev.slice(0, -1));
-                    return [];
-                }
 
-                if (!isDirNode(node)) return ["Not a directory"];
-                const next = node.contents?.[target];
+                const path = resolvePath(target);
+                const node = getNodeAtPath(path);
 
-                if (isDirNode(next)) {
-                    setCwd((prev) => [...prev, target]);
+                if (isDirNode(node)) {
+                    setCwd(path);
                     return [];
                 }
 
@@ -147,23 +155,28 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
             case "cat": {
                 const target = args[1];
                 if (!target) return ["Usage: cat [file]"];
-                if (!isDirNode(node)) return ["Not a directory"];
 
-                const fileNode = node.contents?.[target];
-                if (isFileNode(fileNode)) {
-                    return [fileNode.content];
+                const path = resolvePath(target);
+                const fileName = path.pop();
+                const parent = getNodeAtPath(path);
+
+                if (isDirNode(parent)) {
+                    const fileNode = parent.contents[fileName!];
+                    if (isFileNode(fileNode)) {
+                        return [fileNode.content];
+                    }
                 }
+
                 return ["File not found"];
             }
             case "clear":
                 setHistory([]);
                 return [];
             case "exit":
-                onClose();
-                return [];
+                setIsExiting(true);
+                return ["Exiting terminal..."];
             case "npm":
                 if (args[1] === "start") {
-                    playSound("npm");
                     return [
                         "> portfolio@1.0.0 start",
                         "> next dev",
@@ -194,7 +207,8 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
                     return ["Okay."];
                 }
                 return ["Permission denied"];
-
+            case "pwd":
+                return [`/${cwd.join("/")}` || "/"];
             default:
                 return [`command not found: ${cmd}`];
         }
@@ -274,8 +288,20 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
         ]);
     }, []);
 
+    useEffect(() => {
+        if (isExiting) {
+            const raf = requestAnimationFrame(() => {
+                // Let layout effects finalize first
+                setTimeout(() => {
+                    onClose();
+                }, 100); // Optional slight delay
+            });
+            return () => cancelAnimationFrame(raf);
+        }
+    }, [isExiting]);
+
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className={`fixed inset-0 z-50 flex items-center justify-center ${isExiting ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
             <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-sm transition-opacity animate-fade-in" />
             <div className="relative max-w-3xl w-full mx-4 p-6 text-left font-mono text-sm text-green-500 bg-black border border-green-800 rounded-lg shadow-xl animate-scale-fade-in overflow-y-auto max-h-[90vh]">
                 <div
