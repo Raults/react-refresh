@@ -14,7 +14,7 @@ This is not just a resume. It’s a playground. A portfolio. A subtle maze. A vi
 * **Charts & Graphs:** Chart.js, ECharts (when applicable)
 * **3D Rendering:** Three.js (OnScale Demo)
 * **Icons:** Lucide
-* **Deployment:** Vercel (or whatever you're using)
+* **Deployment:** Vercel
 
 ---
 
@@ -32,7 +32,7 @@ This is not just a resume. It’s a playground. A portfolio. A subtle maze. A vi
   * **ASCII splash art**
   * Boot sequence, aliases (`~`, `..`), blinking caret
   * Type `exit` to close
-* **Background effects** (soon to include bloom, ink-in-water canvas visuals)
+* **Background effects**
 
 ### 📁 Projects
 
@@ -66,7 +66,7 @@ This is not just a resume. It’s a playground. A portfolio. A subtle maze. A vi
 ### 📬 Contact
 
 * Simple contact form
-* Interactive **canvas background** (soon with bloom & cursor-gradient ink trails)
+* Interactive **canvas background**
 
 ---
 
