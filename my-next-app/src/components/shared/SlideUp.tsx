@@ -9,11 +9,13 @@ export default function SlideUp({
   delay = 0,
   threshold = 0.4,
   className,
+  onClick
 }: {
   children: React.ReactNode;
   delay?: number;
   threshold?: number;
   className?: string;
+  onClick?: () => void;
 }) {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -43,6 +45,7 @@ export default function SlideUp({
       className={className} // ← ✅ Add this
       initial={{ opacity: 0, y: 30 }}
       animate={controls}
+      onClick={onClick}
     >
       {children}
     </motion.div>

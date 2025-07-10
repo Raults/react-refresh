@@ -80,6 +80,9 @@ export default function AboutPage() {
                 >
                   <div className="space-y-1 text-lg leading-relaxed font-mono text-white mb-2">
                     <RepelBlock enabled={repelEnabled}>
+                      <u><b>Disclaimer:</b> This app is responsive to mobile, but the best showcase is desktop.</u>
+                    </RepelBlock>
+                    <RepelBlock enabled={repelEnabled}>
                       Before you go clicking around thinking this is just another cookie-cutter portfolio — it’s not.
                     </RepelBlock>
                     <RepelBlock enabled={repelEnabled}>

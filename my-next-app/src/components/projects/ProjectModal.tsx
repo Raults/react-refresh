@@ -35,7 +35,7 @@ export default function ProjectModal({ isOpen, onClose, children }: ProjectModal
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-3xl p-6 bg-white rounded-2xl shadow-xl overflow-y-auto max-h-[90vh]"
+            className="relative w-full max-w-6xl p-8 bg-white rounded-2xl shadow-xl overflow-y-auto max-h-[90vh]"
           >
             <X
               onClick={onClose}
