@@ -1,32 +1,28 @@
 "use client";
 import { useEffect, useRef, useState, RefObject } from "react";
-
-type EditableIntroProps = {
-    onTypingComplete: () => void;
-};
+import TerminalModal from "./TerminalModal";
 
 const lines = [
     "Hi, I'm Ryan Tibbetts.",
     "I build thoughtful frontend experiences.",
 ];
 
-const EditableIntro = ({ onTypingComplete }: EditableIntroProps) => {
+const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) => {
     const [displayedText, setDisplayedText] = useState("");
     const [lineIndex, setLineIndex] = useState(0);
     const [charIndex, setCharIndex] = useState(0);
     const [isEditable, setIsEditable] = useState(false);
     const [showCursor, setShowCursor] = useState(true);
+    const [showTerminal, setShowTerminal] = useState(false);
     const editableRef = useRef<HTMLDivElement>(null);
 
     const focusEditableAtEnd = (ref: RefObject<HTMLDivElement | null>) => {
         const element = ref.current;
         if (!element) return;
-
         const range = document.createRange();
         const sel = window.getSelection();
-
         range.selectNodeContents(element);
-        range.collapse(false); // cursor at end
+        range.collapse(false);
         sel?.removeAllRanges();
         sel?.addRange(range);
     };
@@ -35,21 +31,18 @@ const EditableIntro = ({ onTypingComplete }: EditableIntroProps) => {
         if (lineIndex >= lines.length) return;
 
         const currentLine = lines[lineIndex];
-
         if (charIndex < currentLine.length) {
             const timeout = setTimeout(() => {
                 setDisplayedText((prev) => prev + currentLine[charIndex]);
-                setCharIndex(charIndex + 1);
+                setCharIndex((prev) => prev + 1);
             }, 50);
             return () => clearTimeout(timeout);
         } else {
             const lineDelay = setTimeout(() => {
                 if (lineIndex === lines.length - 1) {
                     onTypingComplete();
-
                     setTimeout(() => {
                         setShowCursor(false);
-
                         setTimeout(() => {
                             setIsEditable(true);
                             requestAnimationFrame(() => {
@@ -63,7 +56,7 @@ const EditableIntro = ({ onTypingComplete }: EditableIntroProps) => {
                     }, 1000);
                 } else {
                     setDisplayedText((prev) => prev + "\n");
-                    setLineIndex(lineIndex + 1);
+                    setLineIndex((prev) => prev + 1);
                     setCharIndex(0);
                 }
             }, 1000);
@@ -71,22 +64,38 @@ const EditableIntro = ({ onTypingComplete }: EditableIntroProps) => {
         }
     }, [charIndex, lineIndex]);
 
+    useEffect(() => {
+        if (!isEditable) return;
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                setShowTerminal(true);
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [isEditable]);
+
     return (
-        <div
-            ref={editableRef}
-            contentEditable={isEditable}
-            suppressContentEditableWarning
-            data-gramm="false"
-            data-gramm_editor="false"
-            className="text-white text-2xl md:text-3xl font-mono whitespace-pre-line text-center max-w-2xl mx-auto outline-none"
-        >
-            {displayedText}
-            {showCursor && (
-                <span className="inline-block w-[0ch] transition-opacity duration-1000 ease-in opacity-100 animate-pulse">
-                    |
-                </span>
-            )}
-        </div>
+        <>
+            <div
+                ref={editableRef}
+                contentEditable={isEditable}
+                suppressContentEditableWarning
+                data-gramm="false"
+                data-gramm_editor="false"
+                className="text-white text-2xl md:text-3xl font-mono whitespace-pre-line text-center max-w-2xl mx-auto outline-none"
+            >
+                {displayedText}
+                {showCursor && (
+                    <span className="inline-block w-[0ch] transition-opacity duration-1000 ease-in opacity-100 animate-pulse">
+                        |
+                    </span>
+                )}
+            </div>
+
+            {showTerminal && <TerminalModal onClose={() => setShowTerminal(false)} />}
+        </>
     );
 };
 

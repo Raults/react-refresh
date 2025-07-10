@@ -197,3 +197,44 @@ body {
 .chevron:hover {
   opacity: 0.8;
 }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+.animate-scale-fade-in {
+  animation: scale-fade-in 0.4s ease-out;
+}
+
+@keyframes blinkCaret {
+  0%, 100% {
+    caret-color: transparent;
+  }
+  50% {
+    caret-color: #22c55e; /* green-500 */
+  }
+}
+
+.animate-blink-caret {
+  animation: blinkCaret 1s step-end infinite;
+}
