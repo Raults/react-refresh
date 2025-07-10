@@ -34,7 +34,7 @@ export function FunIcon({
     type,
     className = "",
 }: {
-    Icon: React.ElementType;
+    Icon: React.ComponentType<{ className?: string }>; // ✅ FIXED HERE
     type: keyof typeof animations;
     className?: string;
 }) {

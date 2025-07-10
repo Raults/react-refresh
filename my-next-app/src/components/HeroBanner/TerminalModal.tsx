@@ -301,7 +301,12 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
     }, [isExiting]);
 
     return (
-        <div className={`fixed inset-0 z-50 flex items-center justify-center ${isExiting ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}>
+        <div
+            className={`fixed inset-0 z-50 flex items-center justify-center ${isExiting ? "opacity-0" : "opacity-100"} transition-opacity duration-300`}
+            style={{
+                fontFamily: `"Courier New", Courier, monospace`,
+            }}
+        >
             <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-sm transition-opacity animate-fade-in" />
             <div className="relative max-w-3xl w-full mx-4 p-6 text-left font-mono text-sm text-green-500 bg-black border border-green-800 rounded-lg shadow-xl animate-scale-fade-in overflow-y-auto max-h-[90vh]">
                 <div
@@ -314,9 +319,19 @@ const TerminalModal = ({ onClose }: TerminalModalProps) => {
                                 <span className="text-blue-400">{getPrompt()}</span>{" "}
                                 {entry.command}
                             </div>
-                            {entry.output.map((line, j) => (
-                                <div key={j}>{line}</div>
-                            ))}
+                            {entry.output.length > 1 ? (
+                                <pre
+                                    className="text-[12px] leading-[12px] whitespace-pre text-green-500"
+                                >
+                                    {entry.output.join("\n")}
+                                </pre>
+                            ) : (
+                                entry.output.map((line, j) => (
+                                    <div key={j} className="font-mono text-green-500">
+                                        {line}
+                                    </div>
+                                ))
+                            )}
                         </div>
                     ))}
 
