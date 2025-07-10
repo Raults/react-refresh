@@ -4,6 +4,7 @@ import React from "react";
 
 type HexLogoProps = {
   pos: "top" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "bottom";
+  onClick?: () => void;
   src?: string;
   type?: "video";
 };
@@ -17,9 +18,10 @@ const positions: Record<HexLogoProps["pos"], string> = {
   bottom: "absolute bottom-0 left-1/2 transform -translate-x-1/2",
 };
 
-export default function HexLogo({ pos, src, type }: HexLogoProps) {
+export default function HexLogo({ pos, onClick, src, type }: HexLogoProps) {
   return (
     <div
+      onClick={onClick}
       className={`w-32 h-32 bg-white rounded-full p-4 shadow-md flex items-center justify-center transition-transform hover:scale-105 grayscale hover:grayscale-0 cursor-pointer ${positions[pos]}`}
     >
       {type === "video" ? (

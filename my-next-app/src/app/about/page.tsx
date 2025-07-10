@@ -1,15 +1,13 @@
 // src/app/about/page.tsx
 "use client";
 
-import Header from "@/components/Header";
+import Header from "@/components/shared/Header";
 import { useState, useEffect, useRef } from "react";
-import clsx from "clsx";
-import RepelBlock from "@/components/RepelBlock";
-import CarGallery from "@/components/CarGallery";
-import ProximitySpin from "@/components/ProximitySpin";
-import EyeTracker from "@/components/EyeTracker";
-import CatPolaroids from "@/components/CatPolaroids";
-import FooterSpacer from "@/components/FooterSpacer";
+import RepelBlock from "@/components/about/RepelBlock";
+import CarGallery from "@/components/about/CarGallery";
+import ProximitySpin from "@/components/about/ProximitySpin";
+import EyeTracker from "@/components/about/EyeTracker";
+import CatPolaroids from "@/components/about/CatPolaroids";
 import {
   Eye,
   Mountain,
@@ -18,13 +16,12 @@ import {
   Car,
   Cat,
 } from "lucide-react";
-import ExpandingSearch from "@/components/ExpandingSearch";
-import { FunIcon } from "@/components/FunIncon";
-import SlideUp from "@/components/SlideUp";
-import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
-import VideoBackground from "@/components/VideoBackground";
-import Chevron from "@/components/Chevron";
-import ToggleSwap from "@/components/ToggleSwap";
+import ExpandingSearch from "@/components/about/ExpandingSearch";
+import { FunIcon } from "@/components/shared/FunIncon";
+import SlideUp from "@/components/shared/SlideUp";
+import VideoBackground from "@/components/shared/VideoBackground";
+import Chevron from "@/components/shared/Chevron";
+import ToggleSwap from "@/components/about/ToggleSwap";
 
 const videos = [
   "/videos/waves-1_1777362-uhd_3840_2160_25fps.mp4",

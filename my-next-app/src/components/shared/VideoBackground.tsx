@@ -4,6 +4,8 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 
 interface VideoBackgroundProps {
   videos?: string[];
+  transitionDelayMs?: number;
+  fadeDurationMs?: number;
 }
 
 const defaultVideos = [
@@ -12,7 +14,11 @@ const defaultVideos = [
   "/videos/crashing-waves_3571264-uhd_3840_2160_30fps.mp4",
 ];
 
-const VideoBackground = ({ videos = defaultVideos }: VideoBackgroundProps) => {
+const VideoBackground = ({
+  videos = defaultVideos,
+  transitionDelayMs = 15000,
+  fadeDurationMs = 5000,
+}: VideoBackgroundProps) => {
   const isMobile = useIsMobile();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState(1);
@@ -22,38 +28,57 @@ const VideoBackground = ({ videos = defaultVideos }: VideoBackgroundProps) => {
   const nextVideoRef = useRef<HTMLVideoElement>(null);
   const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Crossfade
   useEffect(() => {
     if (isMobile || videos.length < 2) return;
 
+    const current = currentVideoRef.current;
+    if (current && current.paused) {
+      current.currentTime = 0;
+      current.play().catch(() => { });
+    }
+
     const handleCrossfade = () => {
-      if (!nextVideoRef.current) return;
+      const current = currentVideoRef.current;
+      const next = nextVideoRef.current;
+      if (!next || !current) return;
 
+      // Reset and play next
+      next.currentTime = 0;
+      next.play().catch(() => { });
       setFadeIn(true);
-      nextVideoRef.current.currentTime = 0;
-      nextVideoRef.current.play();
 
+      // After fade is done
       setTimeout(() => {
+        // Pause the now-hidden previous video
+        current.pause();
+
+        // Update indices
         setCurrentIndex(nextIndex);
         setNextIndex((nextIndex + 1) % videos.length);
         setFadeIn(false);
-      }, 5000);
+      }, fadeDurationMs);
     };
 
-    fadeTimeoutRef.current = setTimeout(handleCrossfade, 15000);
+    fadeTimeoutRef.current = setTimeout(handleCrossfade, transitionDelayMs);
 
     return () => {
       if (fadeTimeoutRef.current) clearTimeout(fadeTimeoutRef.current);
     };
-  }, [currentIndex, nextIndex, isMobile, videos]);
+  }, [currentIndex, nextIndex, isMobile, videos, transitionDelayMs, fadeDurationMs]);
 
   if (isMobile) {
     return (
-      <img
-        src="/images/hero-fallback.jpg"
-        alt="Hero fallback"
-        className="fixed inset-0 w-full h-full object-cover object-center z-[-1]"
-      />
+      <>
+        {/* Hero background image */}
+        <img
+          src="/images/hero-fallback.jpg"
+          alt="Hero fallback"
+          className="fixed inset-0 w-full h-full object-cover object-center z-0"
+        />
+
+        {/* Dark overlay for text contrast */}
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-0" />
+      </>
     );
   }
 
@@ -62,11 +87,10 @@ const VideoBackground = ({ videos = defaultVideos }: VideoBackgroundProps) => {
       <video
         key={`video-${currentIndex}`}
         ref={currentVideoRef}
-        className="absolute inset-0 w-full h-full object-cover object-center z-[0]"
-        autoPlay
+        className="absolute inset-0 w-full h-full object-cover object-center z-10"
         muted
-        loop
         playsInline
+        loop={false}
       >
         <source src={videos[currentIndex]} type="video/mp4" />
       </video>
@@ -74,11 +98,11 @@ const VideoBackground = ({ videos = defaultVideos }: VideoBackgroundProps) => {
       <video
         key={`video-${nextIndex}`}
         ref={nextVideoRef}
-        className={`absolute inset-0 w-full h-full object-cover object-center z-[10] transition-opacity duration-[5000ms] ${fadeIn ? "opacity-100" : "opacity-0"
+        className={`absolute inset-0 w-full h-full object-cover object-center z-20 transition-opacity duration-[${fadeDurationMs}ms] ${fadeIn ? "opacity-100" : "opacity-0"
           }`}
         muted
-        loop
         playsInline
+        loop={false}
       >
         <source src={videos[nextIndex]} type="video/mp4" />
       </video>

@@ -1,9 +1,10 @@
 "use client";
 
-import ContactForm from "@/components/ContactForm";
-import Header from "@/components/Header";
+import ContactForm from "@/components/contact/ContactForm";
+import Header from "@/components/shared/Header";
 import { useRef, useEffect, useState } from "react";
 import { Palette, X, Eraser } from "lucide-react";
+import SlideUp from "@/components/shared/SlideUp";
 
 type Bloom = {
   x: number;
@@ -147,8 +148,9 @@ export default function ContactPage() {
           ref={canvasRef}
           className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
         />
-        <ContactForm />
-
+        <SlideUp>
+          <ContactForm />
+        </SlideUp>
         {/* Color Picker UI */}
         {clickCount >= 4 && (
           <div

@@ -1,12 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import SmoothScrollWrapper from "@/components/SmoothScrollWrapper";
-import SlideUp from "@/components/SlideUp";
-import HexLogo from "@/components/HexLogo";
+import Header from "@/components/shared/Header";
+import SlideUp from "@/components/shared/SlideUp";
+import HexLogo from "@/components/projects/HexLogo";
+import VideoBackground from "@/components/shared/VideoBackground";
+import ProjectModal from "@/components/projects/ProjectModal";
+
+const videos = [
+  "/videos/board-pile_6755170-uhd_3840_2160_25fps.mp4",
+  "/videos/board-pile_6755170-uhd_3840_2160_25fps copy.mp4"
+];
 
 export default function ProjectsPage() {
+  const [activeModal, setActiveModal] = useState<null | string>(null);
 
   useEffect(() => {
     const video = document.getElementById("bg-video") as HTMLVideoElement | null;
@@ -16,56 +23,36 @@ export default function ProjectsPage() {
   }, []);
 
   return (
-    <SmoothScrollWrapper>
+    <>
       <Header />
-      <>
-        {/* Background video (desktop only) */}
-        <video
-          id="bg-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="hidden sm:block fixed inset-0 w-full h-full object-cover opacity-50 blur-md -z-20"
-        >
-          <source src="/videos/ocean-loop_7513671-uhd_3840_2160_24fps.mp4" type="video/mp4" />
-        </video>
-
-        {/* Fallback image (mobile only) */}
-        <div
-          className="block sm:hidden fixed inset-0 bg-cover bg-center opacity-30 blur-md -z-20"
-          style={{ backgroundImage: "url('/images/ocean1.jpg')" }}
-        />
-
-        {/* Shared dark overlay */}
-        <div className="absolute inset-0 bg-black/70 -z-10" />
-      </>
+      <VideoBackground videos={videos} transitionDelayMs={4000} fadeDurationMs={5000} />
+      <div className="fixed inset-0 bg-black/60 z-0" />
       <main className="relative min-h-screen flex items-center justify-center px-4 sm:px-8 md:px-12 py-20 sm:py-30 z-10">
         <div className="relative w-full flex flex-col gap-10 items-center pr-20 pl-10 py-10">
           {/* 👨‍💻 Hexagon Layout – Only shown on md+ */}
-          <div className="relative hidden md:block w-full max-w-4xl h-[600px] mx-auto">
+          <SlideUp className="relative hidden md:block w-full max-w-4xl h-[600px] mx-auto">
             <div className="absolute inset-0 flex items-center text-center z-10 pointer-events-none">
-              <div className="w-full px-48 text-lg text-gray-300 leading-relaxed">
+              <div className="w-full px-48 text-lg text-white leading-relaxed">
                 These logos belong to the companies I’ve built for.
                 Click them to learn who they are, what I did with them, and explore a sample of what you might have seen of my work there.
               </div>
             </div>
             <HexLogo pos="top" type="video" />
-            <HexLogo pos="top-left" src="/logos/duke_logo.png" />
+            <HexLogo pos="top-left" src="/logos/duke_logo.png" onClick={() => setActiveModal("duke")} />
             <HexLogo pos="top-right" src="/logos/delta_logo.png" />
             <HexLogo pos="bottom-left" src="/logos/equifax_logo.png" />
             <HexLogo pos="bottom-right" src="/logos/onscale_logo.png" />
             <HexLogo pos="bottom" src="/logos/turner_logo.png" />
-          </div>
+          </SlideUp>
 
-<SlideUp>
-          <div className="w-full max-w-4xl mx-auto text-center md:hidden mb-10">
-            <p className="text-lg text-gray-300 leading-relaxed">
-              These logos belong to the companies I’ve built for.
-              Click them to learn who they are, what I did with them, and explore a sample of what you might have seen of my work there.
-            </p>
-          </div>
-</SlideUp>
+          <SlideUp>
+            <div className="w-full max-w-4xl mx-auto text-center md:hidden mb-10">
+              <p className="text-lg text-white leading-relaxed">
+                These logos belong to the companies I’ve built for.
+                Click them to learn who they are, what I did with them, and explore a sample of what you might have seen of my work there.
+              </p>
+            </div>
+          </SlideUp>
           {/* 📱 Zigzag Layout – Only shown on small screens */}
           <div className="w-[80%] flex flex-col gap-6 md:hidden px-4">
             {[
@@ -76,7 +63,7 @@ export default function ProjectsPage() {
               { name: "OnScale", src: "/logos/onscale_logo.png" },
               { name: "Turner", src: "/logos/turner_logo.png" },
             ].map((logo, i) => (
-              <div
+              <SlideUp
                 key={i}
                 className={`w-36 h-36 max-w-[50%] flex justify-center bg-white rounded-full p-4 shadow-md grayscale hover:grayscale-0 transition hover:scale-105 cursor-pointer ${i % 2 === 0 ? "ml-auto" : "mr-auto"}`}
               >
@@ -106,12 +93,17 @@ export default function ProjectsPage() {
                     className="max-w-full max-h-full object-contain"
                   />
                 )}
-              </div>
+              </SlideUp>
             ))}
           </div>
 
         </div>
       </main>
-    </SmoothScrollWrapper>
+      <ProjectModal isOpen={activeModal === "duke"} onClose={() => setActiveModal(null)}>
+        {/* <DukeDemo /> */}
+        test
+      </ProjectModal>
+
+    </>
   );
 }

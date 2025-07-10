@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import TransitionOverlay from "@/components/TransitionOverlay";
+import TransitionOverlay from "@/components/shared/TransitionOverlay";
 import { PageTransitionProvider } from "@/context/PageTransitionContext";
 import { Roboto } from "next/font/google";
-import PageTransitionOverlay from "@/components/PageTransitionOverlay";
+import PageTransitionOverlay from "@/components/shared/PageTransitionOverlay";
 import "./globals.css";
 
 export const metadata: Metadata = {

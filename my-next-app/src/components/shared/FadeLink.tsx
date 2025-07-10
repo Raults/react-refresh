@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 type FadeLinkProps = {
   href: string;
   children: React.ReactNode;
+  onClick?: () => void;
   className?: string;
 };
 
