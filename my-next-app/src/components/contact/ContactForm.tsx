@@ -20,7 +20,7 @@ export default function ContactForm() {
         setStatus("sending");
 
         try {
-            const res = await fetch("https://abc123xyz.execute-api.us-east-1.amazonaws.com/", {
+            const res = await fetch("https://6zhg6ilxed.execute-api.us-east-1.amazonaws.com/prod/contactFormHandler", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

@@ -28,7 +28,7 @@ export default function EquifaxUploadDemo() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    
+
     const isFormValid = formData.email.trim() !== "" && formData.ssn.trim() !== "";
 
     return (
@@ -141,7 +141,17 @@ export default function EquifaxUploadDemo() {
                         </button>
                         <button
                             type="button"
-                            onClick={() => alert("Form submitted!")}
+                            onClick={() => {
+                                alert("Form submitted!");
+                                setFormVisible(false);
+                                setUploaded(false);
+                                setFormData({
+                                    name: "John Doe",
+                                    email: "",
+                                    dob: "1990-01-01",
+                                    ssn: "",
+                                });
+                            }}
                             disabled={!isFormValid}
                             className={`w-1/2 py-2 rounded transition text-white cursor-pointer ${isFormValid
                                     ? "bg-[#9E1B32] hover:bg-[#7f162a]"

@@ -2,8 +2,8 @@
 import { X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
-// const carImages = ["car1.jpg", "car2.jpg", "car3.jpg", "car4.jpg", "car5.jpg", "car6.jpg"];
-const carImages = ["car1.jpg", "car2.jpg", "car3.jpg", "car5.jpg"];
+// const carImages = ["car1.JPG", "car2.JPG", "car3.JPG", "car4.JPG", "car5.JPG", "car6.JPG"];
+const carImages = ["car1.JPG", "car2.JPG", "car3.JPG", "car5.JPG"];
 
 export default function CarGallery() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);

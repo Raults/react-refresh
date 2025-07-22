@@ -12,7 +12,6 @@ export default function FunWord({
   animationType: string;
 }) {
   const [clicks, setClicks] = useState(0);
-  const [trigger, setTrigger] = useState(false);
 
   const commonProps = {
     className: "inline-block pointer-events-auto cursor-pointer",

@@ -42,10 +42,11 @@ const EditableIntro = ({ onTypingComplete }: { onTypingComplete: () => void }) =
             editableRef.current?.focus(); // optional
         });
 
-        // Clear editable text content
-        if (editableRef.current) {
-            editableRef.current.innerText = "";
-        }
+        requestAnimationFrame(() => {
+            if (editableRef.current && editableRef.current.parentNode) {
+                editableRef.current.innerText = "";
+            }
+        });
     };
 
     useEffect(() => {

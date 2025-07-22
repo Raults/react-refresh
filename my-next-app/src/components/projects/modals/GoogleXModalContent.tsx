@@ -17,12 +17,12 @@ export function GoogleXModalContent() {
           </p>
           <div className="text-base text-gray-700 space-y-2">
             <p className="font-semibold">Sr. Frontend Developer / Lead UI Architect – US Tech Solutions @ Google X</p>
-            <p className="text-sm text-gray-600">Mar 2023 – Present</p>
+            <p className="text-sm text-gray-600">Mar 2023 – July 2025</p>
             <p>Sole frontend owner across 3 major apps: Factory Interface, Lab UI, and Marketing site. Architected entire Angular codebase using Bazel, gRPC, and Firebase. Built internal visualizations with InfluxDB and Grafana.</p>
           </div>
         </div>
         <div className="text-sm text-gray-700">
-          <strong>Demo:</strong> This demo simulates a connected hardware interface reflecting my work on Google X's Tapestry team. It features interactive modules with real-time status updates, dynamic visuals, and subtle animations to mirror the kind of embedded control systems we were designing for lab and factory interfaces.
+          <strong>Demo:</strong> This demo simulates a connected hardware interface reflecting my work at Google X's. It features interactive modules with real-time status updates, dynamic visuals, and subtle animations to mirror the kind of embedded control systems we were designing for lab and factory interfaces.
         </div>
       </div>
       <div className="w-full flex items-center justify-center border rounded-lg shadow p-4 bg-gray-50 overflow-hidden">
