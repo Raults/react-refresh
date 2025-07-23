@@ -51,14 +51,11 @@ export default function FunWord({
         </motion.span>
       );
     case "drive": {
-      const [driveKey, setDriveKey] = useState(0);
       const [shouldAnimate, setShouldAnimate] = useState(false);
       return (
         <motion.span
-          key={driveKey}
           {...commonProps}
           onClick={() => {
-            setDriveKey((k) => k + 1);
             setShouldAnimate(true);
           }}
           initial={{ x: 0 }}
